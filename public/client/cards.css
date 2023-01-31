@@ -1,0 +1,45 @@
+
+/* Cards-one */
+#Cards-one{
+    margin: 5px;
+    border-radius:10px;
+    box-shadow: 0 0.46875rem 2.1875rem rgb(90 97 105 / 10%), 0 0.9375rem 1.40625rem rgb(90 97 105 / 10%), 0 0.25rem 0.53125rem rgb(90 97 105 / 12%), 0 0.125rem 0.1875rem rgb(90 97 105 / 10%);
+    /* box-shadow: 1px -2px 11px 0px rgba(190, 199, 206, 0.63); */
+}
+#Cards-one:hover{
+    box-shadow: 1px -2px 11px 0px rgba(190, 199, 206, 0.63);
+    transition: all 1s;
+}
+
+.tc_footer{
+    border-top: 1px solid rgb(160, 160, 160);
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+.side-menu button{
+    color: red;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+
+}
+.side-menu form input[type='submit']{
+    padding: 12px 25px 12px 25px;
+    border-radius: 5px;
+    background-color: blue;
+    color: white;
+    border: none;
+    font-family: sans-serif;
+}
+
+
+
+.sub__btn{
+    padding: 12px 25px 12px 25px;
+    border-radius: 5px;
+    background-color: blue;
+    color: white;
+    border: none;
+    font-family: sans-serif;
+}

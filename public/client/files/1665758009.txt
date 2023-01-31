@@ -1,0 +1,312 @@
+ 					Proyekt yaratish :
+ "composer create-project --prefer-dist laravel/laravel:^7.0 blog" ;
+
+
+					Model yaratish :
+"php artisan make:model Name";
+
+
+					Migratsiya qo'shish :
+"php artisan make:migration create_passports_table --create=passports" ;
+
+
+					oxirgi migratsiyani bekor qilish :
+"php artisan make:rollback" ;
+
+
+					Seeder yaratish :
+"php artisan make:seeder TeacherSeeder";
+
+
+					Seeder ni ishga tushurish :
+"php artisan db:seeder";
+
+
+					Jadvalga yangi ustun qo'shish :
+"php artisan make:migration add_column-name_column_to_table-name_table" ;
+	
+
+					Controller yaratish :
+"php artisan make:controller ShopsController -r" ;
+
+
+					Resource : 
+php artisan make:resource EmailResource;
+
+
+					Route ro'yhati :
+"php artisan route:list";
+
+
+					Componenta yaratish :
+
+php artisan make:component Alert
+
+
+					Data base DB ga ulanish :
+"use Illuminate\Support\Facades\DB;"
+
+
+
+					composer yangilash
+"composer self-update";
+
+
+
+
+					Laravel vreeze o'rnatish
+"composer require laravel/breeze --dev";
+
+
+	
+					Register va Avotrizatsiya :
+"composer require laravel/ui:^2.4";
+"php artisan ui bootstrap --auth";
+
+
+					Route ni auth ga bog'lash :
+
+"use Illuminate\Auth\Middleware\Authenticate;";
+
+"Route::group(['middleware' => 'auth'], function () {
+ Route::resource('admin/abouts','AboutController'); // ?
+}); ";
+
+
+
+
+					Auth UI ni GIT BUSH ga chiqarish : 
+"npm install";
+"npm run dev";
+
+
+
+
+					Controller update metodi yakuni :
+
+"$input = $request->all();";
+"$teacher->fill($input)->save();":
+
+
+
+					Language scripti :
+<script>
+function addCookie(lan) {
+	document.cookie = `lang=${lan}`;
+	var url = window.location.href;
+	window.location.reload(url);
+	}
+</script>
+
+
+
+					Language controller da e'lon qilish :
+
+if (isset($_COOKIE["lang"])) 
+        $lang = $_COOKIE["lang"]; 
+
+else 
+	$lang = 'uzs';
+
+
+
+			
+					Language  href ga onclick qilish :
+
+onclick="addCookie('uzs')" ;
+
+
+
+
+
+					Ba'zadan ( DB ) bitta ma'lumot olish:
+
+"$users = DB::table('menuens')
+                    ->whereIn('id', array(1,2))->get();" ;
+
+
+
+			Shablon :
+
+"
+use Illuminate\Support\Facades\DB;
+
+  if (isset($_COOKIE["lang"])) 
+    $lang = $_COOKIE["lang"]; 
+
+  else 
+    $lang = 'uzs';
+
+$menu = DB::table('menu'.$lang)->whereIn('id', array(1,2,3,4,5,6,7,8,9))->get();
+
+"
+
+
+
+					Iconkani ulash :
+" <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>; ";
+
+
+
+					Front dan ba'zaga yuborish :
+
+Routi :
+"
+Route::get('contact', 'ContactFormController@create')->name('contact.create');
+Route::post('contact', 'ContactFormController@store')->name('contact.store');
+"
+
+Front form :
+"
+@if( ! session()->has('message'))
+        <form action="{{ route('contact.store') }}" method="POST">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" value="{{ old('name') }}" class="form-control">
+                <div>{{ $errors->first('name') }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" value="{{ old('email') }}" class="form-control">
+                <div>{{ $errors->first('email') }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea name="message" id="message" cols="30" rows="10"
+                          class="form-control">{{ old('message') }}</textarea>
+                <div>{{ $errors->first('message') }}</div>
+            </div>
+
+            @csrf
+
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+    @endif
+"
+
+Controller metodi :
+"
+ public function create()
+    {
+        return view('contact.create');
+    }
+
+    public function store()
+    {
+        $data = request()->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'message' => 'required',
+        ]);
+
+        DB baza
+
+        return redirect('contact')
+            ->with('message', 'Text success.');
+    }
+";
+
+
+						User name :
+
+"{{ Auth::user()->name }} ";
+
+
+
+
+
+
+						Search yaratish :
+
+Controller metodi :
+
+"
+public function search(Request $request){
+    if(isset($_COOKIE["lang"]))
+            $lang = $_COOKIE["lang"];
+        else
+            $lang = "uzs";
+    // Get the search value from the request
+    $search = $request->input('search');
+
+    // Search in the title and body columns from the posts table
+    $posts = DB::table('post_'.$lang)
+        ->where('name', 'LIKE', "%{$search}%")
+        ->orWhere('info', 'LIKE', "%{$search}%")
+        ->get();
+
+    // Return the search view with the resluts compacted
+    return view('search', compact('posts'));
+}
+"
+
+
+Route :
+
+" Route::get('/search/', 'PostsController@search')-name('search'); "
+
+
+Form :
+
+"
+<form action="{{ route('search') }}" method="GET">
+    <input type="text" name="search" required/>
+    <button type="submit">Search</button>
+</form>
+"
+
+page :
+
+"
+@if($posts->isNotEmpty())
+    @foreach ($posts as $post)
+        <div class="post-list">
+            <p>{{ $post->title }}</p>
+            <img src="{{ $post->image }}">
+        </div>
+    @endforeach
+@else 
+    <div>
+        <h2>No posts found</h2>
+    </div>
+@endif
+"
+
+					File 
+
+'carEvidence' =>  'required|mimes:jpeg,png,jpg,zip,pdf|max:2048',
+
+
+
+
+
+							Vaqt uchun migaration :
+
+"
+$table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+$table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+"
+
+
+
+
+
+							File yuklash :
+" php artisan storage:link ";
+
+
+
+
+					Auth Controller
+"use Illuminate\Support\Facades\Auth;"
+
+
+
+
+
+
+php artisan key:generate
+
+			
